@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignalR Chat</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Authentication -->
+    <main id="authScreen" class="auth-screen">
+        <section class="auth-card">
+            <div class="brand-icon">S</div>
+            <h1>SignalR Chat</h1>
+            <p class="muted">Connect, chat, and stay in touch.</p>
+
+            <div class="auth-tabs">
+                <button id="loginTab" class="tab active" type="button">
+                    Login
+                </button>
+                <button id="registerTab" class="tab" type="button">
+                    Sign Up
+                </button>
+            </div>
+
+            <form id="loginForm">
+                <label for="loginName">Username</label>
+                <input id="loginName" name="Name"
+                       autocomplete="username" required />
+
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="Password" type="password"
+                       autocomplete="current-password" required />
+
+                <button class="primary-btn full-width" type="submit">
+                    Login
+                </button>
+            </form>
+
+            <form id="registerForm" class="hidden">
+                <label for="registerName">Username</label>
+                <input id="registerName" name="Name"
+                       autocomplete="username" required />
+
+                <label for="registerPassword">Password</label>
+                <input id="registerPassword" name="Password" type="password"
+                       autocomplete="new-password" required minlength="6" />
+
+                <button class="primary-btn full-width" type="submit">
+                    Create Account
+                </button>
+            </form>
+
+            <p id="authStatus" class="status-text" role="status"></p>
+        </section>
+    </main>
+
+    <!-- Chat application -->
+    <main id="chatScreen" class="chat-app hidden">
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <div class="brand-icon small">S</div>
+                <div>
+                    <h2>SignalR Chat</h2>
+                    <span id="connectionStatus" class="connection-status">
+                        Disconnected
+                    </span>
+                </div>
+            </header>
+
+            <div class="profile">
+                <div class="avatar" id="userAvatar">U</div>
+                <div class="profile-info">
+                    <strong id="currentUsername">User</strong>
+                    <span>Online chat</span>
+                </div>
+                <button id="logoutBtn" class="icon-btn"
+                        type="button" title="Log out" aria-label="Log out">
+                    ↪
+                </button>
+            </div>
+
+            <div class="section-heading">
+                <span>CONVERSATIONS</span>
+                <button id="newGroupBtn" class="add-btn"
+                        type="button" title="Create conversation">+</button>
+            </div>
+
+            <form id="newGroupForm" class="new-group-form hidden">
+                <input id="newGroupName" placeholder="Conversation name"
+                       maxlength="60" required />
+                <button type="submit">Create</button>
+            </form>
+
+            <p id="groupsStatus" class="sidebar-hint"></p>
+            <div id="groupsList" class="groups-list"></div>
+
+            <div class="sidebar-footer">
+                Messages are delivered in real time.
+            </div>
+        </aside>
+
+        <section class="conversation">
+            <header class="conversation-header">
+                <div class="conversation-avatar" id="roomAvatar">#</div>
+                <div class="conversation-title">
+                    <h2 id="roomTitle">Choose a conversation</h2>
+                    <p id="roomSubtitle">Select a conversation to start chatting</p>
+                </div>
+            </header>
+
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">✉</div>
+                <h2>Your conversations</h2>
+                <p>Select a conversation on the left, or create a new one.</p>
+            </div>
+
+            <div id="messages" class="messages hidden"
+                 aria-live="polite"></div>
+
+            <div id="chatNotice" class="chat-notice" role="status"></div>
+
+            <form id="chatForm" class="message-composer hidden">
+                <input id="messageInput" type="text"
+                       placeholder="Write a message..."
+                       maxlength="2000" autocomplete="off" required />
+                <button id="sendBtn" class="send-btn" type="submit"
+                        aria-label="Send message" title="Send message">
+                    ➤
+                </button>
+            </form>
+            <p class="composer-hint">Press Enter to send a message</p>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
